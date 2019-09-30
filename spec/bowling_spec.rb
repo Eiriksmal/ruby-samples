@@ -12,11 +12,11 @@ describe Bowling, "#score" do
       expect(bowling.score).to eq 40
     end
   end
-  # context 'with only strikes' do
-  #   it 'sums the pin count for each frame' do
-  #     bowling = Bowling.new
-  #     12.times { bowling.hit(10) }
-  #     expect(bowling.score).to eq 300
-  #   end
-  # end
+  context 'with only strikes' do
+    it 'sums the pin count for each frame' do
+      bowling = Bowling.new
+      12.times { bowling.hit(10) }
+      expect(bowling.score).to eq 300
+    end
+  end
 end
