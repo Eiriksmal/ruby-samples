@@ -1,3 +1,7 @@
+##
+# These tests were not written by Eric Lawler!
+# I'm providing them merely to demonstrate the completeness of the movie_ticket_purchase program logic.
+#
 require "movie_ticket_purchase"
 
 describe "MovieTicketPurchase" do

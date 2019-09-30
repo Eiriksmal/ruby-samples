@@ -1,3 +1,6 @@
+##
+# These are all written by Eric Lawler.
+
 # - RSpec adds ./lib to the $LOAD_PATH
 require 'bowling'
 
