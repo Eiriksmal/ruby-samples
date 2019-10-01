@@ -1,46 +1,64 @@
+require_relative 'frame.rb'
+
 class Bowling
-  attr_reader :score, :frames, :throw, :this_frame
+  attr_reader :frames, :throw, :current_frame
 
   def initialize
-    @score = 0
-    @frames = []
+    # Has to be created in a block, or otherwise it creates one Frame with 9 pointers to it!
+    @frames = Array.new(9) { Frame.new(false) } + [Frame.new(true)]
     @throw = 1
-    @this_frame = 0
+    @current_frame = @frames[0]
+    @frame_count = 1
   end
 
   def hit(pin_count)
-    if pin_count < 10
-      @this_frame += pin_count
-      @score += pin_count
-    else
-      if @throw == 1
-        strike
-      end
-    end
-
-    # increment the throws
-    @throw += 1
+    @current_frame.record(pin_count)
 
     # reset the frame?
-    if @throw > 2
+    if reset_frame?(pin_count)
       next_frame
+    else
+      # increment the throws
+      @throw += 1
     end
 
-    @score
+    score
   end
 
-  def strike
-    if @frames.length > 2
-      @score += 10 + last_frame
+  def score
+    score = 0
+    @frames.each do |frame|
+      # calculate the score naively, just to get the first test working again
+      score += frame.throws.compact.sum
     end
+
+    score
   end
+
+  private
 
   def next_frame
-    @frames.push(@this_frame)
-    @throw = 1
+    @frame_count += 1
+
+    if @frame_count < 10
+      @current_frame = @frames[@frame_count - 1]
+      @throw = 1
+    end
   end
 
-  def last_frame
-    @frames.last
+  ##
+  # Hide the bowling business logic
+  # @param [Integer]
+  # @return [Boolean]
+  def reset_frame?(pin_count)
+    if (@throw == 2 && @frame_count < 10) || (@throw == 3 && @frame_count == 10)
+      true
+    elsif pin_count == 10 && @frame_count < 10
+      # strikes always reset a frame, unless it's the 10th frame, where we can get 3 in a row
+      true
+    else
+      false
+    end
   end
+
 end
