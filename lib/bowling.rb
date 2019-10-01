@@ -27,14 +27,55 @@ class Bowling
 
   def score
     score = 0
-    @frames.each do |frame|
-      score += frame.throws.compact.sum
+
+    @frames.each_with_index do |frame, frame_number|
+      frame_total = frame.throws.compact.sum
+      score += frame_total
+
+      # calculate any possible bonus points we earn from throwing a strike or spare
+      if frame_total == 10 && frame.throw_count == 1
+        # strike!
+        score += bonus_points(2, frame_number)
+      elsif frame_total == 10 && frame.throw_count > 1
+        # spare!
+        score += bonus_points(1, frame_number)
+      end
     end
 
     score
   end
 
   private
+
+  ##
+  # Calculate how many bonus points a strike or spare earns
+  # @param [Integer] throw_count
+  # @param [Integer] frame_number
+  # @return [Integer]
+  def bonus_points(throw_count, frame_number)
+    score = 0
+
+    while throw_count > 0
+      frame_number += 1
+      check_frame = @frames[frame_number]
+
+      if check_frame.nil? || check_frame.throw_count == 0
+        return score
+      end
+
+      # add extra points, and decrement the throw_count, for each throw in the next frame
+      check_frame.throws.compact.each do |throw|
+        if throw_count <= 0
+          return score
+        end
+
+        score += throw
+        throw_count -= 1
+      end
+    end
+
+    score
+  end
 
   def next_frame
     @frame_count += 1
