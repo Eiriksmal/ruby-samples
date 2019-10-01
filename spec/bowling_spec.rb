@@ -50,4 +50,30 @@ describe Bowling, "#score" do
       expect(bowling.score).to eq 150
     end
   end
+  context 'how Eric usually bowls' do
+    it 'sums the pin count for a thoroughly mediocre game' do
+      bowling = Bowling.new
+      bowling.hit(7)
+      bowling.hit(2)
+      bowling.hit(10)
+      bowling.hit(4)
+      bowling.hit(3)
+      bowling.hit(8)
+      bowling.hit(2)
+      bowling.hit(7)
+      bowling.hit(0)
+      bowling.hit(0)
+      bowling.hit(9)
+      bowling.hit(8)
+      bowling.hit(0)
+      bowling.hit(10)
+      bowling.hit(7)
+      bowling.hit(1)
+      bowling.hit(6)
+      bowling.hit(4)
+      bowling.hit(8)
+
+      expect(bowling.score).to eq 118
+    end
+  end
 end
