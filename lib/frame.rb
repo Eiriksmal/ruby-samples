@@ -19,6 +19,7 @@ class Frame
   # @param [Integer] score
   def record(score)
     raise ArgumentError, "Invalid score to record!" if score > 10 or score < 0
+    raise ArgumentError, "Frame already recorded maximum number of throws!" if throw_count >= 3
 
     # find first nil score to record how many pins we hit
     @throws[@throws.index(nil)] = score
