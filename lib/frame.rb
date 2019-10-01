@@ -4,8 +4,8 @@
 class Frame
   attr_reader :throws, :is_tenth_frame
 
-  def initialize(is_tenth_frame)
-    @is_tenth_frame = is_tenth_frame
+  def initialize(is_tenth_frame = false)
+    @is_tenth_frame = is_tenth_frame.to_bool
     @throws = Array.new(3)
   end
 

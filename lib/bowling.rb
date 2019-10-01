@@ -5,7 +5,7 @@ class Bowling
 
   def initialize
     # Has to be created in a block, or otherwise it creates one Frame with 9 pointers to it!
-    @frames = Array.new(9) { Frame.new(false) } + [Frame.new(true)]
+    @frames = Array.new(9) { Frame.new } + [Frame.new(true)]
     @throw = 1
     @current_frame = @frames[0]
     @frame_count = 1
