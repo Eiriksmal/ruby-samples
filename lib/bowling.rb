@@ -28,7 +28,6 @@ class Bowling
   def score
     score = 0
     @frames.each do |frame|
-      # calculate the score naively, just to get the first test working again
       score += frame.throws.compact.sum
     end
 
@@ -40,7 +39,7 @@ class Bowling
   def next_frame
     @frame_count += 1
 
-    if @frame_count < 10
+    if @frame_count <= 10
       @current_frame = @frames[@frame_count - 1]
       @throw = 1
     end
