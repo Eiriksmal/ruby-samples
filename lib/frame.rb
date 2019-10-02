@@ -15,6 +15,13 @@ class Frame
   end
 
   ##
+  # Returns the raw number of pins knocked down in a given frame
+  # @return [Integer]
+  def total
+    throws.compact.sum
+  end
+
+  ##
   # Records this throw's number of pins knocked down to the next slot in this frame
   # @param [Integer] score
   def record(score)
