@@ -24,4 +24,16 @@ class Frame
     # find first nil score to record how many pins we hit
     @throws[@throws.index(nil)] = score
   end
+
+  def first_throw
+    @throws[0]
+  end
+
+  def second_throw
+    @throws[1]
+  end
+
+  def third_throw
+    @throws[2] if is_tenth_frame
+  end
 end
