@@ -46,6 +46,19 @@ class Bowling
     score
   end
 
+  def score_display
+    # create an 18-character wide name (space padded)
+    name = bowler_name.ljust(18)
+
+    score_board = <<~HEREDOC
+      +--------------------------------------------------------------------------------------------------------------------------------------------------+
+      | Bowler             | Frame 1   | Frame 2   | Frame 3   | Frame 4   | Frame 5   | Frame 6   | Frame 7   | Frame 8   | Frame 9   | Frame 10        |
+      +--------------------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------------+
+      | #{name} #{graphical_throws}
+      +--------------------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------------+
+    HEREDOC
+  end
+
   private
 
   ##
@@ -102,4 +115,32 @@ class Bowling
     end
   end
 
+  def graphical_throws
+    string = '|'
+
+    @frames.each_with_index do |frame, frame_number|
+      frame_total = frame.throws.compact.sum
+
+      # calculate any possible bonus points we earn from throwing a strike or spare
+      if frame_total == 10 && frame.throw_count == 1
+        if frame_number < 10
+          string += '     |  X  |'
+        else
+          string += 'X'.center(5) + '|'
+        end
+      elsif frame_total == 10 && frame.throw_count > 1
+        string += '/'.center(5) + '|'
+      else
+        frame.throws.compact.each do |pins|
+          if pins < 10
+            string += pins.to_s.center(5) + '|'
+          else
+            string += 'X'.center(5) + '|'
+          end
+        end
+      end
+    end
+
+    string
+  end
 end
