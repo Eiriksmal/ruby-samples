@@ -7,7 +7,7 @@ class Bowling
     # Has to be created in a block, or otherwise it creates one Frame with 9 pointers to it!
     @frames = Array.new(9) { Frame.new } + [Frame.new(true)]
     @throw = 1
-    @current_frame = @frames[0]
+    @current_frame = @frames.first
     @frame_count = 1
     @bowler_name = bowler_name[0...18]
   end
@@ -124,23 +124,38 @@ class Bowling
       # calculate any possible bonus points we earn from throwing a strike or spare
       if frame_total == 10 && frame.throw_count == 1
         if frame_number < 10
-          string += '     |  X  |'
+          string += '     |' + score_symbol(10)
         else
-          string += 'X'.center(5) + '|'
+          string += score_symbol(10)
         end
-      elsif frame_total == 10 && frame.throw_count > 1
-        string += '/'.center(5) + '|'
+      elsif frame.first_throw + frame.second_throw == 10
+        string += score_symbol(frame.first_throw) + '/'.center(5) + '|'
+        string += score_symbol(frame.third_throw) if frame.third_throw
       else
         frame.throws.compact.each do |pins|
-          if pins < 10
-            string += pins.to_s.center(5) + '|'
-          else
-            string += 'X'.center(5) + '|'
-          end
+          string += score_symbol(pins)
         end
+      end
+
+      # add an empty third throw for non-strike/spare 10th frames
+      if frame_number == 9 && frame.throw_count < 3
+        string += '     |'
       end
     end
 
     string
+  end
+
+  def score_symbol(pins)
+    case pins
+    when 1...10
+      symbol = pins.to_s.center(5) + '|'
+    when 10
+      symbol = 'X'.center(5) + '|'
+    else
+      symbol = '-'.center(5) + '|'
+    end
+
+    symbol
   end
 end
