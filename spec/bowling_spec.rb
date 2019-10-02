@@ -140,5 +140,38 @@ describe Bowling do
 
       expect(@bowling.score_display).to eq score_board
     end
+
+    it 'shows an ASCII bowling scorecard for Eric\'s game' do
+      @bowling = Bowling.new('Eric')
+      @bowling.hit(7)
+      @bowling.hit(2)
+      @bowling.hit(10)
+      @bowling.hit(4)
+      @bowling.hit(3)
+      @bowling.hit(8)
+      @bowling.hit(2)
+      @bowling.hit(7)
+      @bowling.hit(0)
+      @bowling.hit(0)
+      @bowling.hit(9)
+      @bowling.hit(8)
+      @bowling.hit(0)
+      @bowling.hit(10)
+      @bowling.hit(7)
+      @bowling.hit(1)
+      @bowling.hit(6)
+      @bowling.hit(4)
+      @bowling.hit(8)
+
+      score_board = <<~HEREDOC
+      +--------------------------------------------------------------------------------------------------------------------------------------------------+
+      | Bowler             | Frame 1   | Frame 2   | Frame 3   | Frame 4   | Frame 5   | Frame 6   | Frame 7   | Frame 8   | Frame 9   | Frame 10        |
+      +--------------------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------------+
+      | Eric               |  7  |  2  |     |  X  |  4  |  3  |  8  |  /  |  7  |  -  |  -  |  9  |  8  |  -  |     |  X  |  7  |  1  |  6  |  /  |  8  |
+      +--------------------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------------+
+      HEREDOC
+
+      expect(@bowling.score_display).to eq score_board
+    end
   end
 end
