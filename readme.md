@@ -2,6 +2,22 @@
 
 This is a small repo containing toy Ruby projects I've created. Some were written as part of code challenges in interview processes. The bowling project is an exception, I'm writing that to practice test-driven development in RSpec.
 
+## Run the tests
+Clone this repo, make sure you're running at least Ruby 2.5.5 (I use rbenv to manage environments), install RSpec, and off you go!
+
+0. `git clone https://github.com/Eiriksmal/ruby-samples.git`
+1. `cd ruby-samples/`
+2. `bundler install`
+3. `rbenv --format doc`
+4. See a bunch of green text for passing tests. 👍 
+
+# Bowling exercise
+
+## What is this?
+RSpec's docs start off by writing a simple test for a bowling simulator, then building out the code for the first test. Bowling has weird rules that are easy to implement, in part, but challenging to fully implement. I figure this is a good chance to think through the optimal Ruby data structures for storing frame information and tracking spares and strikes across throws.
+
+I'm not sure the code fully embodies the Ruby spirit, but I strove to purge the inevitable PHP smells from the files. It seems like it would be more Ruby to remove the parameters from `reset_frame?` and create a `strike!` and `spare!` method, but leaning on that many class variables seems very alien to me. Is that what Ruby prefers, over passing local variables into a method? Please [let me know](https://lawler.io/contact/)!
+
 # Movie Tickets Exercise
 
 ## What is this?
@@ -29,12 +45,6 @@ There are some exceptional cases which can cause us to add/subtract from a ticke
 - On Special Movie Day (Thursday, but does not apply if group-pricing), subtract $2.00/ticket
 - On Weekends (Saturday and Sunday), add $1.50/ticket
 - If seated in the balcony area, add $2.00/ticket
-
-## Additional Assumptions
-
-- Movie tickets must be purchased and consumed on the same day
-- All of the movie tickets for a single purchase must be for the same showing
-- All of the moviegoers for a single purchase will be seated in the same area
 
 ## Predefined Interface
 
@@ -66,27 +76,3 @@ p.add_ticket(35, false)
 p.add_ticket(35, false)
 p.finish() # 44.00
 ```
-
-## Test Cases
-
-- 0 tickets == $0.00
-- 4 x 35 year-olds, 2D, 90 minute duration, Tuesday, normal seating == $44.00
-- 4 x 35 year-olds, 3D, 90 minute duration, Tuesday, normal seating == $56.00
-- 21 x 35 year-old, 2D, 90 minute duration, Tuesday, normal seating == $126.00
-- 4 x 35 year-olds, 3D, 90 minute duration, Tuesday, balcony seating == $64.00
-- 4 x 35 year-olds, 3D, 90 minute duration, Thursday, balcony seating == $56.00
-- 4 x 35 year-olds, 2D, 240 minute duration, Monday, normal seating == $50.00
-- 4 x 35 year-olds, 3D, 90 minute duration, Saturday, balcony seating == $70.00
-- 4 x 9 year-olds, 2D, 90 minute duration, Monday, normal seating == $22.00
-- 4 x 67 year-olds, 2D, 90 minute duration, Monday, normal seating == $24.00
-- 4 x 14 year-old students, 2D, 90 minute duration, Monday, normal seating == $32.00
-- 1 x each type, 2D, 90 minute duration, Monday, normal seating == $30.50
-- 21 x 9 year-olds, 2D, 90 minute duration, Monday, normal seating == $115.50
-- 21 x 35 year-old, 2D, 90 minute duration, Thursday, normal seating == $126.00
-- 10 x 14 year-old students + 11 x 9 year-olds, 2D, 90 minute duration, Monday, normal seating == $120.50
-- 7 x each type, 3D, 240 minute duration, Thursday, balcony seating == $346.50
-
-# Bowling exercise
-
-## What is this?
-RSpec's docs start off by writing a simple test for a bowling simulator, then building out the code for the first test. Bowling has weird rules that are easy to implement, in part, but challenging to fully implement. I figure this is a good chance to think through the optimal Ruby data structures for storing frame information and tracking spares and strikes across throws.
