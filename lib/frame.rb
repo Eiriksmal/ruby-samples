@@ -9,6 +9,8 @@ class Frame
     @throws = Array.new(3)
   end
 
+  ##
+  # Returns how many times the ball has been thrown ("delivered" in bowling parlance) this frame
   def throw_count
     # compact removes nils
     @throws.compact.length
@@ -32,14 +34,23 @@ class Frame
     @throws[@throws.index(nil)] = score
   end
 
+  ##
+  # Returns the number of pins knocked down on this frame's first throw
+  # nil if not thrown
   def first_throw
     @throws[0]
   end
 
+  ##
+  # Returns the number of pins knocked down on this frame's second throw
+  # nil if not thrown
   def second_throw
     @throws[1]
   end
 
+  ##
+  # Returns the number of pins knocked down on this frame's third throw
+  # nil if not thrown
   def third_throw
     @throws[2] if is_tenth_frame
   end
