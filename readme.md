@@ -5,7 +5,7 @@ This is a small repo containing toy Ruby projects I've created. Some were writte
 ## Run the tests
 Clone this repo, make sure you're running at least Ruby 2.5.5 (I use rbenv to manage environments), install RSpec, and off you go!
 
-0. `git clone https://github.com/Eiriksmal/ruby-samples.git`
+0. `git clone https://github.com/Eiriksmal/toy-ruby-projects.git`
 1. `cd ruby-samples/`
 2. `bundler install`
 3. `rbenv --format doc`
