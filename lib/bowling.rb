@@ -1,14 +1,15 @@
 require_relative 'frame.rb'
 
 class Bowling
-  attr_reader :frames, :throw, :current_frame
+  attr_reader :frames, :throw, :current_frame, :bowler_name
 
-  def initialize
+  def initialize(bowler_name = 'Anonymous')
     # Has to be created in a block, or otherwise it creates one Frame with 9 pointers to it!
     @frames = Array.new(9) { Frame.new } + [Frame.new(true)]
     @throw = 1
     @current_frame = @frames[0]
     @frame_count = 1
+    @bowler_name = bowler_name[0...18]
   end
 
   def hit(pin_count)
