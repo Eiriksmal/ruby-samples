@@ -74,4 +74,19 @@ describe Bowling do
       expect(@bowling.score).to eq 118
     end
   end
+
+  context 'visually display score' do
+    it 'shows a nifty ASCII bowling scorecard for a perfect game' do
+      score_board = <<~HEREDOC
+      +--------------------------------------------------------------------------------------------------------------------------------------------------+
+      | Bowler             | Frame 1   | Frame 2   | Frame 3   | Frame 4   | Frame 5   | Frame 6   | Frame 7   | Frame 8   | Frame 9   | Frame 10        |
+      +--------------------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------------+
+      | Anonymous          |     |  X  |     |  X  |     |  X  |     |  X  |     |  X  |     |  X  |     |  X  |     |  X  |     |  X  |  X  |  X  |  X  |
+      +--------------------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------------+
+      HEREDOC
+
+      12.times { @bowling.hit(10) }
+      expect(@bowling.score_display).to eq score_board
+    end
+  end
 end
